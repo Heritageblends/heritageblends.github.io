@@ -10,25 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-<div class="grain" aria-hidden="true"></div>
-
-<header class="nav" id="nav">
-  <a href="#top" class="brand" aria-label="Heritage Blends home">
-    <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2c3 5 8 7 8 13a8 8 0 1 1-16 0c0-6 5-8 8-13z" fill="currentColor"/><circle cx="16" cy="17" r="3" fill="var(--cream)"/></svg>
-    <span class="brand__name">Heritage<em>Blends</em></span>
-    <span class="brand__sub">Spice Shala</span>
-  </a>
-  <nav class="nav__links" aria-label="Primary">
-    <a href="#shop">Shop</a>
-    <a href="#story">Our Story</a>
-    <a href="#ritual">Ritual</a>
-  </nav>
-  <button class="cart-btn" id="cartBtn" aria-label="Open cart">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h2l2.5 12h9L20 8H7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="17" cy="20" r="1.4" fill="currentColor"/></svg>
-    <span class="cart-btn__count" id="cartCount" data-empty="true">0</span>
-  </button>
-</header>
+<body data-page="home">
 
 <main id="top">
   <section class="hero">
@@ -41,7 +23,7 @@
         <span>carries the <em>coast</em></span>
         <span>in every pinch.</span>
       </h1>
-      <p class="hero__lede reveal">100% natural spices, millets and heritage grains from Kizhakkambalam, Kerala — nothing added: no colour, no additives, no preservatives. The warmth of a Kerala kitchen, sealed in a pack.</p>
+      <p class="hero__lede reveal">100% natural spices, millets and heritage grains from Kerala — nothing added: no colour, no additives, no preservatives. The warmth of a Kerala kitchen, sealed in a pack.</p>
       <div class="hero__cta reveal">
         <a href="#shop" class="btn btn--solid">Shop the spices</a>
         <a href="https://www.amazon.in/stores/page/A7D6D321-57EE-4AC2-9443-A8E4D26991DD" target="_blank" rel="noopener" class="btn btn--ghost">Buy on Amazon ↗</a>
@@ -121,44 +103,7 @@
 
 </main>
 
-<footer class="footer">
-  <div class="footer__brand">
-    <span class="brand__name">Heritage<em>Blends</em></span>
-    <p><span lang="ml">സ്പൈസ് ഷാല</span> · Kizhakkambalam, Ernakulam · Kerala</p>
-    <a class="footer__amazon" href="https://www.amazon.in/stores/page/A7D6D321-57EE-4AC2-9443-A8E4D26991DD" target="_blank" rel="noopener">Also on Amazon →</a>
-  </div>
-  <div class="footer__cols">
-    <div><h4>Shop</h4><a href="#shop">All spices</a><a href="#shop">Blends</a><a class="footer__amazon" href="https://www.amazon.in/stores/page/A7D6D321-57EE-4AC2-9443-A8E4D26991DD" target="_blank" rel="noopener">Buy on Amazon ↗</a></div>
-    <div><h4>House</h4><a href="#story">Our story</a><a href="#ritual">The ritual</a></div>
-    <div><h4>Fine print</h4><a href="#">Terms</a><a href="#">Shipping</a><a href="#">Contact</a></div>
-  </div>
-  <p class="footer__note">© 2026 Heritage Blends. Spice Shala is a demo storefront — no real orders are placed.</p>
-</footer>
-
-<aside class="drawer" id="drawer" aria-hidden="true" aria-label="Shopping cart">
-  <div class="drawer__head">
-    <h2>Your tin</h2>
-    <button class="drawer__close" id="drawerClose" aria-label="Close cart">&times;</button>
-  </div>
-  <div class="drawer__items" id="drawerItems"></div>
-  <div class="drawer__empty" id="drawerEmpty">
-    <p>Nothing here yet.</p>
-    <span>Your spices will gather here.</span>
-  </div>
-  <div class="drawer__foot" id="drawerFoot">
-    <div class="drawer__total"><span>Subtotal</span><strong id="cartTotal">₹0</strong></div>
-    <button class="btn btn--solid btn--full" id="checkoutBtn">Checkout</button>
-    <p class="drawer__fineprint">Demo only — checkout is disabled.</p>
-  </div>
-</aside>
-<div class="scrim" id="scrim" hidden></div>
-
-<div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalName">
-  <div class="modal__card" id="modalCard"></div>
-</div>
-
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
+<script src="chrome.js"></script>
 <script src="shared.js"></script>
 <script src="app.js"></script>
 </body>

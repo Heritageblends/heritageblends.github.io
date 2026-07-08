@@ -207,7 +207,7 @@ function renderCart() {
       <div class="line__art" style="background-image:url('${p.img}')"></div>
       <div>
         <div class="line__name">${p.name}</div>
-        <div class="line__price">${rupee(p.price)} / 100g</div>
+        <div class="line__price">${rupee(p.price)} / ${p.size}</div>
         <div class="line__qty">
           <button data-dec="${id}" aria-label="Decrease">–</button>
           <span>${q}</span>

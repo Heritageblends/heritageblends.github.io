@@ -30,6 +30,16 @@ $("#filters").addEventListener("click", e => {
 });
 $("#search").addEventListener("input", e => { state.query = e.target.value.trim().toLowerCase(); renderGrid(); });
 
+/* clicking any in-page "Shop" link resets the grid to All */
+function resetShop() {
+  state.filter = "All";
+  state.query = "";
+  const s = $("#search"); if (s) s.value = "";
+  $$(".chip").forEach(c => c.classList.toggle("active", c.dataset.filter === "All"));
+  renderGrid();
+}
+$$('a[href="#shop"]').forEach(a => a.addEventListener("click", resetShop));
+
 /* ---- testimonials ---- */
 const track = $("#voices"), dots = $("#voiceDots");
 let vIndex = 0, vTimer;
