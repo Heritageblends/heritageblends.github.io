@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Spice Shala — Kerala Spices · Heritage Blends</title>
+<meta name="description" content="Spice Shala, a Heritage Blends brand: small-batch Kerala spices, hand-graded and stone-milled. Cardamom, Malabar pepper, garam masala and more — ground to order." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a href="#top" class="brand" aria-label="Heritage Blends home">
+    <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2c3 5 8 7 8 13a8 8 0 1 1-16 0c0-6 5-8 8-13z" fill="currentColor"/><circle cx="16" cy="17" r="3" fill="var(--cream)"/></svg>
+    <span class="brand__name">Heritage<em>Blends</em></span>
+    <span class="brand__sub">Spice Shala</span>
+  </a>
+  <nav class="nav__links" aria-label="Primary">
+    <a href="#shop">Shop</a>
+    <a href="#story">Our Story</a>
+    <a href="#ritual">Ritual</a>
+  </nav>
+  <button class="cart-btn" id="cartBtn" aria-label="Open cart">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h2l2.5 12h9L20 8H7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="17" cy="20" r="1.4" fill="currentColor"/></svg>
+    <span class="cart-btn__count" id="cartCount" data-empty="true">0</span>
+  </button>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero__specks" id="specks" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <p class="eyebrow reveal">Kerala · 100% natural · no additives</p>
+      <p class="hero__ml reveal" lang="ml">നാടൻ രുചികളുടെ കൂട്ട്</p>
+      <h1 class="hero__title reveal">
+        <span>Flavour that</span>
+        <span>carries the <em>coast</em></span>
+        <span>in every pinch.</span>
+      </h1>
+      <p class="hero__lede reveal">100% natural spices, millets and heritage grains from Kizhakkambalam, Kerala — nothing added: no colour, no additives, no preservatives. The warmth of a Kerala kitchen, sealed in a pack.</p>
+      <div class="hero__cta reveal">
+        <a href="#shop" class="btn btn--solid">Shop the spices</a>
+        <a href="https://www.amazon.in/stores/page/A7D6D321-57EE-4AC2-9443-A8E4D26991DD" target="_blank" rel="noopener" class="btn btn--ghost">Buy on Amazon ↗</a>
+      </div>
+      <dl class="hero__stats reveal">
+        <div><dt>Milled</dt><dd>to order</dd></div>
+        <div><dt>Origin</dt><dd>single estate</dd></div>
+        <div><dt>Batch</dt><dd>under 40kg</dd></div>
+      </dl>
+    </div>
+    <div class="hero__jar reveal" aria-hidden="true">
+      <div class="jar">
+        <span class="jar__lid"></span>
+        <span class="jar__body"></span>
+        <span class="jar__label">SPICE SHALA<br><small>turmeric powder</small><span class="jar__ml" lang="ml">മഞ്ഞൾ</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>Turmeric</span><span>·</span><span>Kashmiri Chilli</span><span>·</span><span>Garam Masala</span><span>·</span><span>Black Pepper</span><span>·</span><span>Ragi</span><span>·</span><span>Foxtail Millet</span><span>·</span><span>Black Rice</span><span>·</span><span>Rakthashali</span><span>·</span><span>Barley</span><span>·</span>
+      <span>Turmeric</span><span>·</span><span>Kashmiri Chilli</span><span>·</span><span>Garam Masala</span><span>·</span><span>Black Pepper</span><span>·</span><span>Ragi</span><span>·</span><span>Foxtail Millet</span><span>·</span><span>Black Rice</span><span>·</span><span>Rakthashali</span><span>·</span><span>Barley</span><span>·</span>
+    </div>
+  </section>
+
+  <section class="shop" id="shop">
+    <div class="shop__head">
+      <div class="reveal">
+        <p class="eyebrow">The pantry · <span lang="ml">അടുക്കള</span></p>
+        <h2 class="section-title">Spices, millets &amp; heritage grains.</h2>
+      </div>
+      <div class="shop__tools reveal">
+        <div class="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <input type="search" id="search" placeholder="Search turmeric, ragi, black rice…" aria-label="Search spices" />
+        </div>
+        <div class="filters" id="filters" role="group" aria-label="Filter by type"></div>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <p class="grid__empty" id="gridEmpty" hidden>No spice by that name — try “pepper”.</p>
+  </section>
+
+  <section class="story" id="story">
+    <div class="story__art reveal" aria-hidden="true">
+      <div class="story__tile t1"></div>
+      <div class="story__tile t2"></div>
+      <div class="story__tile t3"></div>
+    </div>
+    <div class="story__copy reveal">
+      <p class="eyebrow">Since a grandmother's kitchen</p>
+      <h2 class="section-title">We grew up between drying mats and the smell of roasting coriander.</h2>
+      <p>Spice Shala began on a verandah in Kizhakkambalam, where three generations sorted cardamom pods by lamplight and argued over the right ratio for garam masala. We never wrote it down — we tasted until it was right.</p>
+      <p>Today we work with the same estates our family bought from, grade by hand, and mill in small lots so nothing sits losing its oils. What reaches you is what we'd cook with ourselves.</p>
+      <a href="#shop" class="btn btn--ghost">Taste the difference</a>
+    </div>
+  </section>
+
+  <section class="ritual" id="ritual">
+    <div class="ritual__head reveal">
+      <p class="eyebrow">The ritual</p>
+      <h2 class="section-title">Three steps from tin to table.</h2>
+    </div>
+    <ol class="ritual__steps">
+      <li class="reveal"><span class="ritual__num">01</span><h3>Bloom</h3><p>Warm the spice in a dry pan until it speaks — thirty seconds, no more. The kitchen tells you when.</p></li>
+      <li class="reveal"><span class="ritual__num">02</span><h3>Grind</h3><p>Crush fresh. Pre-ground spice is a memory of flavour; this is the flavour itself.</p></li>
+      <li class="reveal"><span class="ritual__num">03</span><h3>Fold</h3><p>Add late, off the heat where you can. Heat is a thief of the top notes you paid for.</p></li>
+    </ol>
+  </section>
+
+  <section class="voices">
+    <div class="voices__head reveal"><p class="eyebrow">Kitchen letters</p><h2 class="section-title">What lands on our doormat.</h2></div>
+    <div class="voices__track" id="voices" aria-live="polite"></div>
+    <div class="voices__dots" id="voiceDots" role="tablist" aria-label="Testimonials"></div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__brand">
+    <span class="brand__name">Heritage<em>Blends</em></span>
+    <p><span lang="ml">സ്പൈസ് ഷാല</span> · Kizhakkambalam, Ernakulam · Kerala</p>
+    <a class="footer__amazon" href="https://www.amazon.in/stores/page/A7D6D321-57EE-4AC2-9443-A8E4D26991DD" target="_blank" rel="noopener">Also on Amazon →</a>
+  </div>
+  <div class="footer__cols">
+    <div><h4>Shop</h4><a href="#shop">All spices</a><a href="#shop">Blends</a><a class="footer__amazon" href="https://www.amazon.in/stores/page/A7D6D321-57EE-4AC2-9443-A8E4D26991DD" target="_blank" rel="noopener">Buy on Amazon ↗</a></div>
+    <div><h4>House</h4><a href="#story">Our story</a><a href="#ritual">The ritual</a></div>
+    <div><h4>Fine print</h4><a href="#">Terms</a><a href="#">Shipping</a><a href="#">Contact</a></div>
+  </div>
+  <p class="footer__note">© 2026 Heritage Blends. Spice Shala is a demo storefront — no real orders are placed.</p>
+</footer>
+
+<aside class="drawer" id="drawer" aria-hidden="true" aria-label="Shopping cart">
+  <div class="drawer__head">
+    <h2>Your tin</h2>
+    <button class="drawer__close" id="drawerClose" aria-label="Close cart">&times;</button>
+  </div>
+  <div class="drawer__items" id="drawerItems"></div>
+  <div class="drawer__empty" id="drawerEmpty">
+    <p>Nothing here yet.</p>
+    <span>Your spices will gather here.</span>
+  </div>
+  <div class="drawer__foot" id="drawerFoot">
+    <div class="drawer__total"><span>Subtotal</span><strong id="cartTotal">₹0</strong></div>
+    <button class="btn btn--solid btn--full" id="checkoutBtn">Checkout</button>
+    <p class="drawer__fineprint">Demo only — checkout is disabled.</p>
+  </div>
+</aside>
+<div class="scrim" id="scrim" hidden></div>
+
+<div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalName">
+  <div class="modal__card" id="modalCard"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="shared.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
