@@ -62,8 +62,7 @@
   </div>
   <div class="drawer__foot" id="drawerFoot">
     <div class="drawer__total"><span>Subtotal</span><strong id="cartTotal">₹0</strong></div>
-    <button class="btn btn--solid btn--full" id="checkoutBtn">Checkout</button>
-    <p class="drawer__fineprint">Demo only — checkout is disabled.</p>
+    <p class="drawer__fineprint">Orders are placed over WhatsApp — we confirm stock &amp; delivery before you pay.</p>
   </div>
 </aside>
 <div class="scrim" id="scrim" hidden></div>

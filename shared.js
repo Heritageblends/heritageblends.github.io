@@ -243,7 +243,6 @@ function openDrawer() { drawer.classList.add("open"); drawer.setAttribute("aria-
 function closeDrawer() { drawer.classList.remove("open"); drawer.setAttribute("aria-hidden", "true"); hideScrim(); }
 $("#cartBtn").addEventListener("click", openDrawer);
 $("#drawerClose").addEventListener("click", closeDrawer);
-$("#checkoutBtn").addEventListener("click", () => toast("Demo store — checkout is disabled"));
 scrim.addEventListener("click", () => scrimHandler && scrimHandler());
 
 /* ---- quick-view modal ---- */
@@ -300,8 +299,8 @@ waFab.innerHTML = `${WA_ICON}<span>Order on WhatsApp</span>`;
 document.body.appendChild(waFab);
 
 const waCartBtn = document.createElement("button");
-waCartBtn.className = "btn btn--full wa-btn";
+waCartBtn.className = "btn btn--solid btn--full wa-btn";
 waCartBtn.type = "button";
 waCartBtn.innerHTML = `${WA_ICON} Order on WhatsApp`;
 waCartBtn.addEventListener("click", () => window.open(waLink(waCartText()), "_blank", "noopener"));
-$("#checkoutBtn").insertAdjacentElement("afterend", waCartBtn);
+$("#drawerFoot").insertBefore(waCartBtn, $(".drawer__fineprint"));
