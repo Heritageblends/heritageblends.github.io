@@ -68,7 +68,11 @@ a { color: inherit; text-decoration: none; }
   box-shadow: 0 1px 0 var(--line); padding-top: .7rem; padding-bottom: .7rem;
 }
 .brand { display: flex; align-items: center; gap: .55rem; color: var(--ink); }
-.brand__mark { width: 26px; height: 26px; color: var(--saffron); }
+.brand__mark {
+  width: 44px; height: 26px; flex: none; background: var(--clove);
+  -webkit-mask: url("assets/mark.png") center/contain no-repeat;
+  mask: url("assets/mark.png") center/contain no-repeat;
+}
 .brand__name { font-family: var(--serif); font-size: 1.15rem; font-weight: 600; letter-spacing: -.01em; }
 .brand__name em { font-style: italic; font-weight: 400; color: var(--ink-soft); margin-left: .25em; }
 .nav__links { display: flex; gap: 1.8rem; margin-left: auto; margin-right: 2rem; }
@@ -250,8 +254,11 @@ a { color: inherit; text-decoration: none; }
 
 /* footer */
 .footer { background: var(--clove); color: var(--cream); padding: clamp(3rem,6vw,5rem) clamp(1.1rem,4vw,3rem) 2rem; display: grid; grid-template-columns: 1.4fr 2fr; gap: 2rem; max-width: 100%; }
-.footer__brand .brand__name { color: var(--cream); font-size: 1.4rem; }
-.footer__brand .brand__name em { color: var(--turmeric); }
+.footer__wordmark {
+  display: block; width: min(260px, 70%); aspect-ratio: 1200 / 293; background: var(--cream);
+  -webkit-mask: url("assets/wordmark.png") left center/contain no-repeat;
+  mask: url("assets/wordmark.png") left center/contain no-repeat;
+}
 .footer__brand p { color: #f7efdd80; margin-top: .6rem; font-size: .9rem; }
 .footer__cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
 .footer__cols h4 { font-family: var(--serif); font-weight: 500; font-size: 1.1rem; margin-bottom: .8rem; }

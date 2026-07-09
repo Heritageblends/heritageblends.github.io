@@ -18,7 +18,7 @@
 <div class="grain" aria-hidden="true"></div>
 <header class="nav${home ? "" : " scrolled"}" id="nav">
   <a href="${home ? "#top" : "index.html"}" class="brand" aria-label="Heritage Blends home">
-    <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2c3 5 8 7 8 13a8 8 0 1 1-16 0c0-6 5-8 8-13z" fill="currentColor"/><circle cx="16" cy="17" r="3" fill="var(--cream)"/></svg>
+    <span class="brand__mark" aria-hidden="true"></span>
     <span class="brand__name">Heritage<em>Blends</em></span>
     <span class="brand__sub">Spice Shala</span>
   </a>
@@ -37,7 +37,7 @@
   const footer = `
 <footer class="footer">
   <div class="footer__brand">
-    <span class="brand__name">Heritage<em>Blends</em></span>
+    <span class="footer__wordmark" role="img" aria-label="Heritage Blends — Authenticity in Every Blend"></span>
     <p><span lang="ml">സ്പൈസ് ഷാല</span> · Kerala</p>
     ${amz("Also on Amazon →")}
   </div>
