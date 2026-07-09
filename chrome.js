@@ -10,8 +10,6 @@
        <script src="your-page.js"></script>  <!-- optional -->
      </body> */
 (() => {
-  const AMAZON = "https://www.amazon.in/stores/page/A7D6D321-57EE-4AC2-9443-A8E4D26991DD";
-  const WHATSAPP = "917306889276";
   const home = document.body.dataset.page === "home";
   const P = home ? "" : "index.html";           // prefix links back to the landing sections
   const amz = (label) => `<a class="footer__amazon" href="${AMAZON}" target="_blank" rel="noopener">${label}</a>`;
@@ -28,10 +26,11 @@
     <a href="${P}#shop">Shop</a>
     <a href="${P}#story">Our Story</a>
     <a href="${P}#ritual">Ritual</a>
+    <a href="${P}#contact">Contact</a>
   </nav>
   <button class="cart-btn" id="cartBtn" aria-label="Open cart">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h2l2.5 12h9L20 8H7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="17" cy="20" r="1.4" fill="currentColor"/></svg>
-    <span class="cart-btn__count" id="cartCount" data-empty="true">0</span>
+    <span class="cart-btn__count" id="cartCount" data-empty="true" aria-live="polite">0</span>
   </button>
 </header>`;
 
@@ -39,15 +38,15 @@
 <footer class="footer">
   <div class="footer__brand">
     <span class="brand__name">Heritage<em>Blends</em></span>
-    <p><span lang="ml">സ്പൈസ് ഷാല</span> · Kizhakkambalam, Ernakulam · Kerala</p>
+    <p><span lang="ml">സ്പൈസ് ഷാല</span> · Kerala</p>
     ${amz("Also on Amazon →")}
   </div>
   <div class="footer__cols">
     <div><h4>Shop</h4><a href="${P}#shop">All spices</a><a href="${P}#shop">Blends</a>${amz("Buy on Amazon ↗")}</div>
     <div><h4>House</h4><a href="${P}#story">Our story</a><a href="${P}#ritual">The ritual</a></div>
-    <div><h4>Say hello</h4><a href="https://wa.me/${WHATSAPP}" target="_blank" rel="noopener">WhatsApp us</a>${amz("Amazon store ↗")}</div>
+    <div><h4>Say hello</h4><a href="https://wa.me/${WHATSAPP}" target="_blank" rel="noopener">WhatsApp us</a><a href="${INSTAGRAM}" target="_blank" rel="noopener">Instagram ↗</a>${amz("Amazon store ↗")}</div>
   </div>
-  <p class="footer__note">© 2026 Heritage Blends. Spice Shala is a demo storefront — no real orders are placed.</p>
+  <p class="footer__note">© 2026 Heritage Blends.</p>
 </footer>
 
 <aside class="drawer" id="drawer" aria-hidden="true" aria-label="Shopping cart">

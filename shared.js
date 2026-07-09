@@ -7,10 +7,10 @@ const PRODUCTS = [
     origin: "Organic · Kerala", use: "Curries, tandoori marinades, pickles", ml: "കാശ്മീരി മുളക് പൊടി" },
   { id: "garam", name: "Garam Masala", type: "Spices", price: 199, size: "100g", asin: "B0GWY7PBB4", img: "assets/garam.jpg", c1: "#6a3a1c", c2: "#a8602e", heat: 2,
     tags: ["warm", "complex"], desc: "A strong blend of premium spices — roasted and ground for a rich aroma and bold flavour. 100% pure and natural, no fillers.",
-    origin: "Blended in Kizhakkambalam", use: "Finish curries, biryani, roast vegetables", ml: "ഗരം മസാല" },
+    origin: "Blended in Kerala", use: "Finish curries, biryani, roast vegetables", ml: "ഗരം മസാല" },
   { id: "chutney", name: "Chutney Powder", type: "Spices", price: 140, size: "100g", asin: "B0GXWWXZTY", img: "assets/chutney.jpg", c1: "#8a4a1c", c2: "#c0803a", heat: 2,
     tags: ["nutty", "spicy"], desc: "Homemade-style gun powder podi of roasted lentils, chilli and curry leaf. Mix with hot rice and ghee, or dust over idli and dosa.",
-    origin: "Blended in Kizhakkambalam", use: "Rice & ghee, idli, dosa", ml: "ചമ്മന്തിപ്പൊടി" },
+    origin: "Blended in Kerala", use: "Rice & ghee, idli, dosa", ml: "ചമ്മന്തിപ്പൊടി" },
   { id: "pepper", name: "Whole Black Pepper", type: "Spices", price: 190, size: "100g", asin: "B0GVML7XCH", img: "assets/pepper.jpg", c1: "#3a2a1e", c2: "#6b4a30", heat: 3,
     tags: ["bold aroma", "strong"], desc: "Premium Kerala whole black pepper (kali mirch) — bold aroma and strong flavour. 100% natural, nothing added.",
     origin: "Organic · Kerala", use: "Rasam, eggs, everything — grind fresh", ml: "കുരുമുളക്" },
@@ -112,11 +112,10 @@ const rupee = n => "₹" + n.toLocaleString("en-IN");
 const productById = id => PRODUCTS.find(p => p.id === id);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-const WHATSAPP = "917306889276"; // Spice Shala WhatsApp: +91 73068 89276
 const WA_ICON = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5 4.5.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.7.8-2.7-.2-.3A8 8 0 1 1 12 20z"/></svg>';
-const waLink = t => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(t)}`;
+const waButton = (text, cls = "") => `<a class="btn wa-btn ${cls}" href="${waLink(text)}" target="_blank" rel="noopener">${WA_ICON} Order on WhatsApp</a>`;
 function waCartText() {
-  const items = Object.entries(state.cart);
+  const items = cartEntries();
   if (!items.length) return "Hi Spice Shala, I'd like to place an order.";
   const lines = items.map(([id, q]) => { const p = productById(id); return `• ${q} × ${p.name} (${p.size}) — ${rupee(p.price * q)}`; });
   return `Hi Spice Shala, I'd like to order:\n${lines.join("\n")}\n\nTotal: ${rupee(cartTotal())}`;
@@ -134,6 +133,15 @@ function loadJSON(key, fallback) {
 }
 function saveCart() { localStorage.setItem("msc_cart", JSON.stringify(state.cart)); }
 function saveReviews() { localStorage.setItem("msc_reviews", JSON.stringify(state.reviews)); }
+
+/* drop cart ids whose product no longer exists (renamed/removed) so nothing
+   dereferences an undefined product downstream */
+(function pruneCart() {
+  let changed = false;
+  for (const id of Object.keys(state.cart)) if (!productById(id)) { delete state.cart[id]; changed = true; }
+  if (changed) saveCart();
+})();
+const cartEntries = () => Object.entries(state.cart).filter(([id]) => productById(id));
 
 /* ---- reviews ---- */
 function reviewsFor(id) { return [...(state.reviews[id] || []), ...(SEED_REVIEWS[id] || [])]; }
@@ -156,7 +164,7 @@ function cardHTML(p) {
   const n = reviewCount(p.id);
   return `<article class="card" data-id="${p.id}">
     <a class="card__art" href="product.html?id=${p.id}" aria-label="View ${p.name}">
-      <img class="card__img" src="${p.img}" alt="${p.name}" loading="lazy">
+      <img class="card__img" src="${p.img}" alt="${p.name}" width="600" height="600" loading="lazy">
     </a>
     <div class="card__body">
       <span class="card__type">${p.type}</span>
@@ -185,8 +193,9 @@ function setQty(id, delta) {
   saveCart(); renderCart();
 }
 function removeItem(id) { delete state.cart[id]; saveCart(); renderCart(); }
-const cartCount = () => Object.values(state.cart).reduce((a, b) => a + b, 0);
-const cartTotal = () => Object.entries(state.cart).reduce((a, [id, q]) => a + productById(id).price * q, 0);
+function clearCart() { state.cart = {}; saveCart(); renderCart(); }
+const cartCount = () => cartEntries().reduce((a, [, q]) => a + q, 0);
+const cartTotal = () => cartEntries().reduce((a, [id, q]) => a + productById(id).price * q, 0);
 
 function renderCart() {
   const count = cartCount();
@@ -196,7 +205,7 @@ function renderCart() {
   badge.dataset.empty = count === 0;
 
   const items = $("#drawerItems"), empty = $("#drawerEmpty"), foot = $("#drawerFoot");
-  const entries = Object.entries(state.cart);
+  const entries = cartEntries();
   empty.style.display = entries.length ? "none" : "grid";
   foot.style.display = entries.length ? "block" : "none";
   items.style.display = entries.length ? "flex" : "none";
@@ -227,7 +236,7 @@ function bump() {
 
 /* delegated clicks (grid, cart, quick view) */
 document.addEventListener("click", e => {
-  const add = e.target.closest("[data-add]"); if (add) return addToCart(add.dataset.add);
+  const add = e.target.closest("[data-add]"); if (add) { addToCart(add.dataset.add); if (modal.classList.contains("open")) closeModal(); return; }
   const quick = e.target.closest("[data-quick]"); if (quick) return openModal(quick.dataset.quick);
   const inc = e.target.closest("[data-inc]"); if (inc) return setQty(inc.dataset.inc, 1);
   const dec = e.target.closest("[data-dec]"); if (dec) return setQty(dec.dataset.dec, -1);
@@ -236,11 +245,12 @@ document.addEventListener("click", e => {
 
 /* ---- drawer + scrim ---- */
 const drawer = $("#drawer"), scrim = $("#scrim"), modal = $("#modal");
-let scrimHandler = null;
+let scrimHandler = null, lastFocus = null;
+drawer.inert = true; modal.inert = true;
 function showScrim(onClick) { scrim.hidden = false; scrimHandler = onClick; }
 function hideScrim() { if (!drawer.classList.contains("open") && !modal.classList.contains("open")) { scrim.hidden = true; scrimHandler = null; } }
-function openDrawer() { drawer.classList.add("open"); drawer.setAttribute("aria-hidden", "false"); showScrim(closeDrawer); }
-function closeDrawer() { drawer.classList.remove("open"); drawer.setAttribute("aria-hidden", "true"); hideScrim(); }
+function openDrawer() { lastFocus = document.activeElement; drawer.inert = false; drawer.classList.add("open"); drawer.setAttribute("aria-hidden", "false"); showScrim(closeDrawer); $("#drawerClose").focus(); }
+function closeDrawer() { drawer.classList.remove("open"); drawer.setAttribute("aria-hidden", "true"); drawer.inert = true; hideScrim(); lastFocus && lastFocus.focus(); }
 $("#cartBtn").addEventListener("click", openDrawer);
 $("#drawerClose").addEventListener("click", closeDrawer);
 scrim.addEventListener("click", () => scrimHandler && scrimHandler());
@@ -250,7 +260,7 @@ function openModal(id) {
   const p = productById(id);
   $("#modalCard").innerHTML = `
     <button class="modal__close" id="modalClose" aria-label="Close">&times;</button>
-    <div class="modal__art"><img class="modal__img" src="${p.img}" alt="${p.name}"></div>
+    <div class="modal__art"><img class="modal__img" src="${p.img}" alt="${p.name}" width="600" height="600"></div>
     <div class="modal__body">
       <span class="modal__type">${p.type}${p.heat ? ` · Heat ${heatDots(p.heat)}` : ""}</span>
       <h2 class="modal__name" id="modalName">${p.name}</h2>
@@ -263,11 +273,13 @@ function openModal(id) {
         <a class="btn btn--ghost" href="product.html?id=${p.id}">Full details & reviews →</a>
       </div>
     </div>`;
-  modal.classList.add("open"); modal.setAttribute("aria-hidden", "false");
+  lastFocus = document.activeElement;
+  modal.inert = false; modal.classList.add("open"); modal.setAttribute("aria-hidden", "false");
   showScrim(closeModal);
   $("#modalClose").addEventListener("click", closeModal);
+  $("#modalClose").focus();
 }
-function closeModal() { modal.classList.remove("open"); modal.setAttribute("aria-hidden", "true"); hideScrim(); }
+function closeModal() { modal.classList.remove("open"); modal.setAttribute("aria-hidden", "true"); modal.inert = true; hideScrim(); lastFocus && lastFocus.focus(); }
 modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape") { closeModal(); closeDrawer(); } });
 
@@ -304,3 +316,10 @@ waCartBtn.type = "button";
 waCartBtn.innerHTML = `${WA_ICON} Order on WhatsApp`;
 waCartBtn.addEventListener("click", () => window.open(waLink(waCartText()), "_blank", "noopener"));
 $("#drawerFoot").insertBefore(waCartBtn, $(".drawer__fineprint"));
+
+const clearBtn = document.createElement("button");
+clearBtn.className = "drawer__clear";
+clearBtn.type = "button";
+clearBtn.textContent = "Clear tin";
+clearBtn.addEventListener("click", clearCart);
+$("#drawerFoot").appendChild(clearBtn);

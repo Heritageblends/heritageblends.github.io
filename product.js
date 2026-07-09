@@ -9,7 +9,23 @@ if (!product) {
     <p class="pdp__desc">We couldn't find that product. <a href="index.html#shop" style="text-decoration:underline">Back to the shop →</a></p></section>`;
 } else {
   document.title = `${product.name} — Spice Shala · Heritage Blends`;
+  injectJsonLd(product);
   render();
+}
+
+function injectJsonLd(p) {
+  const count = reviewCount(p.id), avg = avgRating(p.id);
+  const data = {
+    "@context": "https://schema.org", "@type": "Product",
+    name: p.name, image: `${SITE}/${p.img}`, description: p.desc,
+    category: p.type, brand: { "@type": "Brand", name: "Spice Shala" },
+    offers: { "@type": "Offer", priceCurrency: "INR", price: p.price, availability: "https://schema.org/InStock", url: amazonProduct(p.asin) },
+  };
+  if (count) data.aggregateRating = { "@type": "AggregateRating", ratingValue: avg.toFixed(1), reviewCount: count };
+  const el = document.createElement("script");
+  el.type = "application/ld+json";
+  el.textContent = JSON.stringify(data);
+  document.head.appendChild(el);
 }
 
 function reviewHTML(r, fresh) {
@@ -73,7 +89,7 @@ function render() {
     <div class="pdp__main">
       <div class="pdp__art">
         <span class="pdp__badge">${p.type}</span>
-        <img class="pdp__img" src="${p.img}" alt="${esc(p.name)}">
+        <img class="pdp__img" src="${p.img}" alt="${esc(p.name)}" width="600" height="600">
       </div>
       <div class="pdp__info">
         <span class="card__type">${p.type} · 100% natural</span>
@@ -98,8 +114,8 @@ function render() {
           </div>
           <button class="btn btn--solid" id="pdpAdd">Add to tin — <span id="pdpTotal">${rupee(p.price)}</span></button>
         </div>
-        <a class="btn wa-btn pdp__wa" href="${waLink(`Hi Spice Shala, I'd like to order ${p.name} (${p.size}) — ${rupee(p.price)}.`)}" target="_blank" rel="noopener">${WA_ICON} Order on WhatsApp</a>
-        <a class="pdp__amazon" href="https://www.amazon.in/dp/${p.asin}" target="_blank" rel="noopener">Buy this on Amazon ↗</a>
+        ${waButton(`Hi Spice Shala, I'd like to order ${p.name} (${p.size}) — ${rupee(p.price)}.`, "pdp__wa")}
+        <a class="pdp__amazon" href="${amazonProduct(p.asin)}" target="_blank" rel="noopener">Buy this on Amazon ↗</a>
       </div>
     </div>
   </section>

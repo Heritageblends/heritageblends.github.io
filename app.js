@@ -28,7 +28,16 @@ $("#filters").addEventListener("click", e => {
   $$(".chip").forEach(c => c.classList.toggle("active", c === b));
   renderGrid();
 });
-$("#search").addEventListener("input", e => { state.query = e.target.value.trim().toLowerCase(); renderGrid(); });
+const searchEl = $("#search");
+const searchClear = document.createElement("button");
+searchClear.type = "button";
+searchClear.className = "search__clear";
+searchClear.setAttribute("aria-label", "Clear search");
+searchClear.innerHTML = "&times;";
+searchClear.hidden = true;
+searchEl.after(searchClear);
+searchEl.addEventListener("input", e => { state.query = e.target.value.trim().toLowerCase(); searchClear.hidden = !e.target.value; renderGrid(); });
+searchClear.addEventListener("click", () => { searchEl.value = ""; state.query = ""; searchClear.hidden = true; renderGrid(); searchEl.focus(); });
 
 /* clicking any in-page "Shop" link resets the grid to All */
 function resetShop() {
@@ -63,9 +72,11 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
   for (let i = 0; i < 26; i++) {
     const s = document.createElement("span");
     s.className = "speck";
-    const size = 4 + Math.random() * 9;
-    s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random() * 100}%;bottom:-20px;
-      background:${SPECK_COLORS[i % 4]};animation-duration:${12 + Math.random() * 16}s;animation-delay:${-Math.random() * 20}s`;
+    s.style.setProperty("--size", `${4 + Math.random() * 9}px`);
+    s.style.setProperty("--x", `${Math.random() * 100}%`);
+    s.style.setProperty("--bg", SPECK_COLORS[i % 4]);
+    s.style.setProperty("--dur", `${12 + Math.random() * 16}s`);
+    s.style.setProperty("--delay", `${-Math.random() * 20}s`);
     specks.appendChild(s);
   }
 }

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://heritageblends.github.io/sitemap.xml
